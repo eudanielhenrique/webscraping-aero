@@ -7,16 +7,15 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const scrapeOfertas = async ({ origin, destination, departureDate }) => {
   const browser = await puppeteer.launch({
     headless: true, // Use headless para ambientes de produção
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-accelerated-2d-canvas',
-      '--no-first-run',
-      '--no-zygote',
-      '--single-process', // Recomendado para Railway
-      '--disable-gpu',
-    ],
+     args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--disable-gpu',
+        '--no-zygote',
+        '--single-process',
+      ],
     executablePath: process.env.CHROMIUM_PATH || null, // Railway define CHROMIUM_PATH
   });
 
