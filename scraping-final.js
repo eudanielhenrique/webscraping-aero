@@ -6,10 +6,19 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const scrapeFlights = async ({ origin, destination, departureDate }) => {
   const browser = await puppeteer.launch({
-    headless: false,
-    defaultViewport: null,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    headless: true, // Modo headless obrigatório em ambientes sem GUI
+    args: [
+      '--no-sandbox', // Necessário para execução em contêineres
+      '--disable-setuid-sandbox', // Previne problemas de permissões
+      '--disable-dev-shm-usage', // Evita problemas de memória compartilhada
+      '--disable-accelerated-2d-canvas',
+      '--disable-gpu', // Desativa GPU, não necessária em headless
+      '--no-zygote',
+      '--single-process', // Reduz o consumo de recursos
+    ],
   });
+
+
 
   const page = await browser.newPage();
 
